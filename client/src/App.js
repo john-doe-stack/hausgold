@@ -13,7 +13,10 @@ import About from './components/About';
 import Contact from './components/Contact';
 import HomePage from './components/HomePage';
 
+
 import './i18n';
+import './stylesheet.css';
+
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
@@ -157,21 +160,24 @@ const App = () => {
                     </button>
                   </div>
 
-                  <Link to="/properties" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                    Properties
-                  </Link>
-                  <Link to="/buy" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                    Buy
-                  </Link>
-                  <Link to="/rent" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                    Rent
-                  </Link>
-                  <Link to="/about" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                    About Us
-                  </Link>
-                  <Link to="/contact" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                    Contact
-                  </Link>
+                  <div className="font-hagrid font-extrabold">
+  <Link to="/properties" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
+    Properties
+  </Link>
+  <Link to="/buy" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
+    Buy
+  </Link>
+  <Link to="/rent" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
+    Rent
+  </Link>
+  <Link to="/about" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
+    About Us
+  </Link>
+  <Link to="/contact" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
+    Contact
+  </Link>
+</div>
+
 
                   {user ? (
                     <>
@@ -219,46 +225,60 @@ const App = () => {
 
         {/* Footer */}
         <footer className="bg-primary text-white py-8">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div>
-                <h3 className="text-2xl font-bold text-secondary mb-4">Hausgold</h3>
-                <p className="text-gray-200">Germany's trusted real estate platform</p>
-              </div>
+  <div className="container mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+  <h3 className="font-hagrid font-bold text-secondary text-2xl mb-4">
+    HAUSGOLD LTD.
+  </h3>
+  <p className="text-gray-200">Germany's trusted real estate platform</p>
+</div>
 
-              <div>
-                <h4 className="font-semibold mb-4">Discover</h4>
-                <ul className="space-y-2">
-                  <li><Link to="/buy" className="text-gray-200 hover:text-secondary transition-colors">Buy</Link></li>
-                  <li><Link to="/rent" className="text-gray-200 hover:text-secondary transition-colors">Rent</Link></li>
-                </ul>
-              </div>
+      <div>
+        <h4 className="font-semibold mb-4">Discover</h4>
+        <ul className="space-y-2">
+          <li><Link to="/buy" className="text-gray-200 hover:text-secondary transition-colors">Buy</Link></li>
+          <li><Link to="/rent" className="text-gray-200 hover:text-secondary transition-colors">Rent</Link></li>
+        </ul>
+      </div>
 
-              <div>
-                <h4 className="font-semibold mb-4">Company</h4>
-                <ul className="space-y-2">
-                  <li><Link to="/about" className="text-gray-200 hover:text-secondary transition-colors">About Us</Link></li>
-                  <li><Link to="/contact" className="text-gray-200 hover:text-secondary transition-colors">Contact</Link></li>
-                  <li><Link to="/privacy" className="text-gray-200 hover:text-secondary transition-colors">Privacy</Link></li>
-                </ul>
-              </div>
+      <div>
+        <h4 className="font-semibold mb-4">Company</h4>
+        <ul className="space-y-2">
+          <li><Link to="/about" className="text-gray-200 hover:text-secondary transition-colors">About Us</Link></li>
+          <li><Link to="/contact" className="text-gray-200 hover:text-secondary transition-colors">Contact</Link></li>
+          <li><Link to="/privacy" className="text-gray-200 hover:text-secondary transition-colors">Privacy</Link></li>
+        </ul>
+      </div>
 
-              <div>
-                <h4 className="font-semibold mb-4">Contact</h4>
-                <div className="space-y-2 text-gray-200">
-                  <p>info@hausgold.de</p>
-                  <p>+49 (0)40 635 5427</p>
-                  <p>+1 (862) 955 2387</p>
-                  <p>Jungfernstieg 24, 20354 Hamburg, Germany</p>
-                </div>
-              </div>
-            </div>
+      <div>
+        <h4 className="font-semibold mb-4">Contact</h4>
+        <div className="space-y-2 text-gray-200">
+          <p>
+            <i className="fas fa-envelope mr-2"></i>
+            info@hausgoldltd.com
+          </p>
+          <p>
+            <i className="fas fa-phone mr-2"></i>
+            +49 (0)40 635 5427
+          </p>
+          <p>
+  <i className="fab fa-telegram-plane mr-2"></i>
+  +1 (862) 955 2387
+</p>
 
-            <div className="border-t border-gray-400 mt-8 pt-8 text-center text-gray-200">
-              <p>&copy; 2025 Hausgold Ltd. | Jungfernstieg 24, 20354 Hamburg, Germany</p>
-            </div>
-          </div>
-        </footer>
+          <p>
+            <i className="fas fa-map-marker-alt mr-2"></i>
+            Jungfernstieg 24, 20354 Hamburg, Germany
+          </p>
+        </div>
+      </div>
+    </div>
+    <div className="border-t border-gray-400 mt-8 pt-8 text-center text-gray-200">
+      <p>&copy; 2025 Hausgold Ltd. | Jungfernstieg 24, 20354 Hamburg, Germany</p>
+    </div>
+  </div>
+</footer>
       </div>
     </Router>
   );

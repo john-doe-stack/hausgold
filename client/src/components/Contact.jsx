@@ -1,5 +1,7 @@
 // client/src/components/Contact.jsx
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,23 +21,35 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // In a real app, this would send the form data to your backend
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    
-    // Reset form after 5 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
-    }, 5000);
-  };
+  e.preventDefault();
+
+  const serviceID = 'service_h65xbvm';
+  const templateID = 'template_z1hwoxe';
+  const userID = 'bzHm3ecM5-u3dLjVo';
+
+  emailjs.send(serviceID, templateID, formData, userID)
+    .then(() => {
+      console.log('Email successfully sent!');
+      setSubmitted(true);
+
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      }, 5000);
+    })
+    .catch((error) => {
+      console.error('Failed to send email:', error);
+      alert('Oops! Something went wrong, please try again.');
+    });
+};
+
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -82,7 +96,7 @@ const Contact = () => {
                 </svg>
                 <div>
                   <p className="font-semibold">Email</p>
-                  <p className="text-gray-600">info@hausgold.de</p>
+                  <p className="text-gray-600">info@hausgoldltd.com</p>
                 </div>
               </div>
             </div>

@@ -195,7 +195,7 @@ app.post('/api/messages', authenticateToken, (req, res) => {
   );
 });
 
-// ✅ Serve React build in production
+// ✅ Serve React build in production (after routes, before listen)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get('*', (req, res) => {

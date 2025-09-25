@@ -8,6 +8,9 @@
         primary: '#333300', // Dark Olive
         secondary: '#cc9933', // Golden Amber
       },
+      fontFamily: {
+        hagrid: ['"Hagrid Text Trial"', 'sans-serif'],
+      },
     },
   },
   plugins: [],
