@@ -11,6 +11,7 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "nodemon server/server.js",
     "dev:client": "cd client && set PORT=3001 && npm start",
+    "build": "cd client && npm install && npm run build",
     "start": "node server/server.js"
   },
   "keywords": [
@@ -43,6 +44,6 @@
     "nodemon": "^3.0.1"
   },
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   }
 }
