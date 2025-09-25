@@ -11,18 +11,56 @@ const bcrypt = require('bcrypt');
 const multer = require('multer');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000; // Render uses 10000 by default
 const JWT_SECRET = process.env.JWT_SECRET || 'hausgold-secret-2025';
 
-// Middleware
-app.use(helmet());
-app.use(cors());
+// ✅ Allow frontend origin (Vercel + localhost)
+const corsOptions = {
+  origin: [
+    'http://localhost:3001', // your local React dev port
+    'https://hausgold-frontend.onrender.com',
+    /\.onrender\.com$/ // allows all Render preview URLs
+  ],
+  credentials: true
+};
+app.use(cors(corsOptions));
+
+// ✅ Updated CSP: Allow Unsplash + Cloudinary
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "img-src": [
+          "'self'",
+          "data:",
+          "https://via.placeholder.com",
+          "https://images.unsplash.com",
+          "https://res.cloudinary.com",
+          "https://*.cloudinary.com"
+        ],
+        // Allow connections to backend
+        "connect-src": [
+          "'self'",
+          "http://localhost:3001",
+          "https://hausgold.vercel.app",
+          "https://hausgold-backend.onrender.com"
+        ],
+      },
+    },
+  })
+);
+
+app.use(cors(corsOptions)); // ✅ Enable CORS
 app.use(morgan('dev'));
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads'))); // ✅ Absolute path
+
+// ... rest of your code remains the same ...
 
 // Database
-const db = new sqlite3.Database('./hausgold.db');
+const dbPath = path.join(__dirname, '../hausgold.db');
+const db = new sqlite3.Database(dbPath);
 
 // Auth Middleware
 const authenticateToken = (req, res, next) => {
@@ -40,7 +78,8 @@ const authenticateToken = (req, res, next) => {
 // File Upload Setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    const uploadDir = path.join(__dirname, '../uploads');
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
@@ -97,7 +136,6 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-// ✅ Logout route
 app.post('/api/logout', (req, res) => {
   res.json({ message: 'Logout successful' });
 });
@@ -187,7 +225,6 @@ app.post('/api/messages', authenticateToken, (req, res) => {
 
   db.run(
     `INSERT INTO messages (from_user_id, to_user_id, content) VALUES (?, ?, ?)`,
-
     [fromUserId, toUserId, content],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
@@ -196,13 +233,7 @@ app.post('/api/messages', authenticateToken, (req, res) => {
   );
 });
 
-// ✅ Serve React build in production (after routes, before listen)
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
-}
+
 
 // Start Server
 app.listen(PORT, () => {
