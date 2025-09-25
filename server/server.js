@@ -187,6 +187,7 @@ app.post('/api/messages', authenticateToken, (req, res) => {
 
   db.run(
     `INSERT INTO messages (from_user_id, to_user_id, content) VALUES (?, ?, ?)`,
+
     [fromUserId, toUserId, content],
     function(err) {
       if (err) return res.status(500).json({ error: err.message });
