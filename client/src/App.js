@@ -1,5 +1,4 @@
-﻿// client/src/App.js
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -16,8 +15,7 @@ import HomePage from './components/HomePage';
 import './i18n';
 import './stylesheet.css';
 
-// ✅ Dynamically set API base URL
-// ✅ Dynamically set API base URL
+// ✅ Correct API base URL setup
 const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:10000';
 axios.defaults.baseURL = baseURL;
 
@@ -284,5 +282,4 @@ const App = () => {
   );
 };
 
-export default App;/ /   R e b u i l d   t r i g g e r   0 9 / 2 5 / 2 0 2 5   2 3 : 3 1 : 0 4  
- 
+export default App;
