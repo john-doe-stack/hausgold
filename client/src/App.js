@@ -160,23 +160,49 @@ const App = () => {
                     </button>
                   </div>
 
-                  <div className="font-hagrid font-extrabold">
-                    <Link to="/properties" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                      Properties
-                    </Link>
-                    <Link to="/buy" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                      Buy
-                    </Link>
-                    <Link to="/rent" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                      Rent
-                    </Link>
-                    <Link to="/about" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                      About Us
-                    </Link>
-                    <Link to="/contact" className="text-white hover:text-secondary py-2 border-b border-gray-600" onClick={toggleMobileMenu}>
-                      Contact
-                    </Link>
-                  </div>
+                  <div className="flex flex-col space-y-4">
+  <Link 
+    to="/properties" 
+    className="text-white hover:text-secondary py-2 border-b border-gray-600" 
+    onClick={toggleMobileMenu}
+  >
+    Properties
+  </Link>
+  
+  <Link 
+    to="/buy" 
+    className="text-white hover:text-secondary py-2 border-b border-gray-600" 
+    onClick={toggleMobileMenu}
+  >
+    Buy
+  </Link>
+  
+  <Link 
+    to="/rent" 
+    className="text-white hover:text-secondary py-2 border-b border-gray-600" 
+    onClick={toggleMobileMenu}
+  >
+    Rent
+  </Link>
+  
+  <Link 
+    to="/about" 
+    className="text-white hover:text-secondary py-2 border-b border-gray-600" 
+    onClick={toggleMobileMenu}
+  >
+    About Us
+  </Link>
+  
+  <Link 
+    to="/contact" 
+    className="text-white hover:text-secondary py-2 border-b border-gray-600" 
+    onClick={toggleMobileMenu}
+  >
+    Contact
+  </Link>
+</div>
+
+                  
 
                   {user ? (
                     <>

@@ -210,6 +210,16 @@ db.run(`
   ('Leonie Fischer', 'leonie@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
 `);
 
+// At the top, after opening DB
+db.get("SELECT COUNT(*) as count FROM properties", (err, row) => {
+  if (err || row.count > 0) {
+    console.log("PropertyParams already exist. Skipping seed.");
+    db.close();
+    return;
+  }
+
+  // ... rest of your seeding code ...
+});
 // Clear existing properties first
 db.run(`DELETE FROM properties`);
 

@@ -16,7 +16,7 @@ const HomePage = () => {
         setLoading(true);
         const res = await axios.get('/api/properties');
         // Get first 8 properties for featured section
-        setFeaturedProperties(res.data.slice(0, 8));
+        setFeaturedProperties(res.data);
       } catch (err) {
         console.error(err);
         setFeaturedProperties([]);
