@@ -1,6 +1,8 @@
 // server/seed-properties.js
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./hausgold.db');
+const path = require('path');
+const dbPath = path.join(__dirname, '../hausgold.db');
+const db = new sqlite3.Database(dbPath);
 
 const sampleProperties = [
   {
@@ -185,60 +187,90 @@ const sampleProperties = [
   }
 ];
 
-// Insert sample users if they don't exist
-db.run(`
-  INSERT OR IGNORE INTO users (name, email, password_hash) VALUES 
-  ('Thomas Schmidt', 'thomas@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Michael Wagner', 'michael@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Andreas Becker', 'andreas@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Markus Hoffmann', 'markus@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Christian Schulz', 'christian@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Daniel Meyer', 'daniel@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Stefan Weber', 'stefan@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Alexander Klein', 'alexander@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Matthias Braun', 'matthias@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Jan Fischer', 'jan@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Sarah Becker', 'sarah@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Lisa Wagner', 'lisa@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Anna Schmidt', 'anna@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Julia Hoffmann', 'julia@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Maria Klein', 'maria@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Sophie Braun', 'sophie@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Emma Schulz', 'emma@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Hannah Meyer', 'hannah@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Laura Weber', 'laura@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-  ('Leonie Fischer', 'leonie@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
-`);
+// Promisify db.run for sequential execution
+function dbRun(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.run(sql, params, function(err) {
+      if (err) reject(err);
+      else resolve({ id: this.lastID, changes: this.changes });
+    });
+  });
+}
 
-// At the top, after opening DB
-db.get("SELECT COUNT(*) as count FROM properties", (err, row) => {
-  if (err || row.count > 0) {
-    console.log("PropertyParams already exist. Skipping seed.");
-    db.close();
-    return;
-  }
+async function seedDatabase() {
+  try {
+    // Check if properties already exist
+    const countStmt = await new Promise((resolve, reject) => {
+      db.get("SELECT COUNT(*) as count FROM properties", (err, row) => {
+        if (err) reject(err);
+        else resolve(row.count);
+      });
+    });
 
-  // ... rest of your seeding code ...
-});
-// Clear existing properties first
-db.run(`DELETE FROM properties`);
-
-// Insert sample properties
-sampleProperties.forEach((property, index) => {
-  db.run(
-    `INSERT INTO properties (title, type, price, description, image_url, user_id, location) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    [property.title, property.type, property.price, property.description, property.image_url, property.user_id, property.location],
-    function(err) {
-      if (err) {
-        console.error("Error inserting property:", err.message);
-      } else {
-        console.log('✅ Inserted: ' + property.title);
-      }
+    if (countStmt > 0) {
+      console.log("PropertyParams already exist. Skipping seed.");
+      return;
     }
-  );
-});
 
-db.close(() => {
-  console.log("🔒 Database connection closed");
-  console.log("🎉 Successfully seeded database with 20 German sample properties!");
-});
+    // Insert sample users (if not exists)
+    await dbRun(`
+      INSERT OR IGNORE INTO users (name, email, password_hash) VALUES 
+      ('Thomas Schmidt', 'thomas@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Michael Wagner', 'michael@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Andreas Becker', 'andreas@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Markus Hoffmann', 'markus@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Christian Schulz', 'christian@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Daniel Meyer', 'daniel@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Stefan Weber', 'stefan@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Alexander Klein', 'alexander@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Matthias Braun', 'matthias@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Jan Fischer', 'jan@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Sarah Becker', 'sarah@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Lisa Wagner', 'lisa@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Anna Schmidt', 'anna@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Julia Hoffmann', 'julia@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Maria Klein', 'maria@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Sophie Braun', 'sophie@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Emma Schulz', 'emma@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Hannah Meyer', 'hannah@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Laura Weber', 'laura@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+      ('Leonie Fischer', 'leonie@hausgold.de', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
+    `);
+
+    // Clear existing properties (just in case)
+    await dbRun(`DELETE FROM properties`);
+
+    // Insert properties one by one
+    for (const property of sampleProperties) {
+      await dbRun(
+        `INSERT INTO properties (title, type, price, description, image_url, user_id, location) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [property.title.trim(), property.type, property.price, property.description.trim(), property.image_url.trim(), property.user_id, property.location.trim()]
+      );
+      console.log('✅ Inserted:', property.title);
+    }
+
+    // Final count check
+    const finalCount = await new Promise((resolve, reject) => {
+      db.get("SELECT COUNT(*) as count FROM properties", (err, row) => {
+        if (err) reject(err);
+        else resolve(row.count);
+      });
+    });
+    console.log(`🎉 Successfully seeded database with ${finalCount} German sample properties!`);
+
+  } catch (err) {
+    console.error('❌ Fatal error during seeding:', err.message);
+    process.exit(1);
+  } finally {
+    db.close((err) => {
+      if (err) {
+        console.error('Error closing database:', err.message);
+      } else {
+        console.log('🔒 Database connection closed');
+      }
+    });
+  }
+}
+
+// Run the seeder
+seedDatabase();
