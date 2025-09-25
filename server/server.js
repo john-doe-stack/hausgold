@@ -15,17 +15,17 @@ const PORT = process.env.PORT || 10000; // Render uses 10000 by default
 const JWT_SECRET = process.env.JWT_SECRET || 'hausgold-secret-2025';
 
 // ✅ Allow frontend origin (Vercel + localhost)
+// ✅ Clean CORS origins (remove trailing spaces!)
 const corsOptions = {
   origin: [
-    'http://localhost:3001', // your local React dev port
+    'http://localhost:3001',
     'https://hausgold-frontend.onrender.com',
-    /\.onrender\.com$/ // allows all Render preview URLs
+    /\.onrender\.com$/
   ],
   credentials: true
 };
-app.use(cors(corsOptions));
 
-// ✅ Updated CSP: Allow Unsplash + Cloudinary
+// ✅ Clean CSP (remove trailing spaces in URLs)
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -39,18 +39,16 @@ app.use(
           "https://res.cloudinary.com",
           "https://*.cloudinary.com"
         ],
-        // Allow connections to backend
         "connect-src": [
           "'self'",
           "http://localhost:3001",
-          "https://hausgold.vercel.app",
+          "https://hausgold-frontend.onrender.com",
           "https://hausgold-backend.onrender.com"
         ],
       },
     },
   })
 );
-
 app.use(cors(corsOptions)); // ✅ Enable CORS
 app.use(morgan('dev'));
 app.use(express.json());
