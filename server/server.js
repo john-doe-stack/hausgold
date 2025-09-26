@@ -18,12 +18,16 @@ const JWT_SECRET = process.env.JWT_SECRET || 'hausgold-secret-2025';
 // ✅ Clean CORS origins (remove trailing spaces!)
 const corsOptions = {
   origin: [
-    'http://localhost:3001',
-    'https://hausgold-frontend.onrender.com',
-    /\.onrender\.com$/
+    'http://localhost:3001',               // Local dev
+    'https://hausgoldltd.com',             // Your live domain
+    'https://www.hausgoldltd.com',         // www version
+    /\.onrender\.com$/                     // Allow all Render preview URLs
   ],
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 200
 };
+
+
 
 // ✅ Clean CSP (remove trailing spaces in URLs)
 app.use(
