@@ -237,7 +237,7 @@ const HomePage = () => {
                           {prop.type === 'rent' ? t('forRent') : t('forSale')}
                         </span>
                         <span className="text-lg md:text-xl font-bold text-primary">
-                          â‚¬{prop.price.toLocaleString()}
+                          €{prop.price.toLocaleString()}
                         </span>
                       </div>
                       <h3 className="text-base md:text-lg font-semibold mb-2">{prop.title}</h3>
