@@ -243,7 +243,7 @@ const HomePage = () => {
                       <h3 className="text-base md:text-lg font-semibold mb-2">{prop.title}</h3>
                       <p className="text-gray-600 mb-3 md:mb-4 text-sm">{prop.description?.substring(0, 60)}...</p>
                       <div className="flex justify-between items-center">
-                        <span className="text-xs md:text-sm text-gray-500">ðŸ“ {prop.location || 'Germany'}</span>
+                        <span className="text-xs md:text-sm text-gray-500">📍 {prop.location || 'Germany'}</span>
                         <button className="text-secondary hover:text-primary transition-colors">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>

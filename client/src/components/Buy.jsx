@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿// client/src/components/Buy.jsx
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Buy = () => {
@@ -7,17 +8,16 @@ const Buy = () => {
   const [loading, setLoading] = useState(true);
   const [selectedOwner, setSelectedOwner] = useState(null);
 
-  // Buy properties (latest full list from your input)
   const buyProperties = [
     {
       id: 1,
       title: "Modern Apartment in Berlin Mitte",
       price: 450000,
-      description: "Beautiful modern apartment in the heart of Berlin Mitte. 120mÂ² with 3 bedrooms, balcony, and modern kitchen.",
+      description: "Beautiful modern apartment in the heart of Berlin Mitte. 120m² with 3 bedrooms, balcony, and modern kitchen.",
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667250/dd7897cd6fa6622fb14fac8a55362f89-uncropped_scaled_within_1536_1152_oixskn.webp",
       location: "Berlin Mitte",
       bedrooms: 3,
-      area: "120mÂ²"
+      area: "120m²"
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ const Buy = () => {
       image_url: "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dmlsbGF8ZW58MHx8MHx8fDA%3D",
       location: "Munich",
       bedrooms: 5,
-      area: "350mÂ²"
+      area: "350m²"
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ const Buy = () => {
       image_url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
       location: "Frankfurt",
       bedrooms: 4,
-      area: "220mÂ²"
+      area: "220m²"
     },
     {
       id: 6,
@@ -47,7 +47,7 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667248/d11afbf88e5b1827123b9552437e55cf-cc_ft_768_b9r21z.webp",
       location: "Dresden",
       bedrooms: 3,
-      area: "150mÂ²"
+      area: "150m²"
     },
     {
       id: 7,
@@ -57,7 +57,7 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667248/0903529dc1e2cc3c9d9c6b8f238d9897-uncropped_scaled_within_1536_1152_usband.webp",
       location: "Stuttgart",
       bedrooms: 3,
-      area: "180mÂ²"
+      area: "180m²"
     },
     {
       id: 8,
@@ -67,17 +67,17 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667244/122f1fe4bd39164e27ad2b7c27126295-uncropped_scaled_within_1536_1152_hcrwae.webp",
       location: "Heidelberg",
       bedrooms: 4,
-      area: "300mÂ²"
+      area: "300m²"
     },
     {
       id: 11,
-      title: "Modern Townhouse in DÃ¼sseldorf",
+      title: "Modern Townhouse in Düsseldorf",
       price: 550000,
-      description: "Contemporary townhouse in a desirable neighborhood of DÃ¼sseldorf. 3 bedrooms, 2 bathrooms, garage.",
+      description: "Contemporary townhouse in a desirable neighborhood of Düsseldorf. 3 bedrooms, 2 bathrooms, garage.",
       image_url: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
-      location: "DÃ¼sseldorf",
+      location: "Düsseldorf",
       bedrooms: 3,
-      area: "160mÂ²"
+      area: "160m²"
     },
     {
       id: 12,
@@ -87,7 +87,7 @@ const Buy = () => {
       image_url: "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
       location: "Bavarian Alps",
       bedrooms: 2,
-      area: "90mÂ²"
+      area: "90m²"
     },
     {
       id: 14,
@@ -97,7 +97,7 @@ const Buy = () => {
       image_url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
       location: "Munich",
       bedrooms: 6,
-      area: "500mÂ²"
+      area: "500m²"
     },
     {
       id: 16,
@@ -107,7 +107,7 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667243/4caf9f4d4580dd5fca4d63fd3c7ceda3-uncropped_scaled_within_1536_1152_sg62lx.webp",
       location: "Nuremberg",
       bedrooms: 4,
-      area: "250mÂ²"
+      area: "250m²"
     },
     {
       id: 17,
@@ -117,7 +117,7 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667244/6a39e2812edbaa76a1648a8ffe273a55-uncropped_scaled_within_1536_1152_pvndfo.webp",
       location: "Bonn",
       bedrooms: 4,
-      area: "200mÂ²"
+      area: "200m²"
     },
     {
       id: 19,
@@ -127,7 +127,7 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667250/bd95fb0e8164a05db85f8995c6beacff-uncropped_scaled_within_1536_1152_ye6fsy.webp",
       location: "Berlin",
       bedrooms: 4,
-      area: "300mÂ²"
+      area: "300m²"
     },
     {
       id: 20,
@@ -137,7 +137,7 @@ const Buy = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667248/d11afbf88e5b1827123b9552437e55cf-cc_ft_768_b9r21z.webp",
       location: "Black Forest",
       bedrooms: 2,
-      area: "110mÂ²"
+      area: "110m²"
     }
   ];
 
@@ -174,7 +174,6 @@ const Buy = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Page Title */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-primary mb-4">Properties for Sale</h1>
         <p className="text-gray-600 max-w-3xl mx-auto">
@@ -182,38 +181,36 @@ const Buy = () => {
         </p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <div className="text-3xl font-bold text-secondary mb-2">{properties.length}</div>
           <div className="text-gray-600">Properties Available</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <div className="text-3xl font-bold text-secondary mb-2">â‚¬{Math.min(...properties.map(p => p.price)).toLocaleString()}</div>
+          <div className="text-3xl font-bold text-secondary mb-2">{'\u20AC'}{Math.min(...properties.map(p => p.price)).toLocaleString()}</div>
           <div className="text-gray-600">Starting Price</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <div className="text-3xl font-bold text-secondary mb-2">â‚¬{Math.max(...properties.map(p => p.price)).toLocaleString()}</div>
+          <div className="text-3xl font-bold text-secondary mb-2">{'\u20AC'}{Math.max(...properties.map(p => p.price)).toLocaleString()}</div>
           <div className="text-gray-600">Luxury Properties</div>
         </div>
       </div>
 
-      {/* Property Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {properties.map((prop) => (
           <div key={prop.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-            <img src={prop.image_url} alt={prop.title} className="w-full h-48 object-cover" />
+            <img src={prop.image_url.trim()} alt={prop.title} className="w-full h-48 object-cover" onError={(e) => e.target.src = "https://via.placeholder.com/640x360?text=Image+Not+Found"} />
             <div className="p-6">
               <div className="flex justify-between items-start mb-3">
                 <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm">For Sale</span>
-                <span className="text-xl font-bold text-primary">â‚¬{prop.price.toLocaleString()}</span>
+                <span className="text-xl font-bold text-primary">{'\u20AC'}{prop.price.toLocaleString()}</span>
               </div>
               <h3 className="text-lg font-semibold mb-2">{prop.title}</h3>
               <p className="text-gray-600 mb-4 text-sm">{prop.description.substring(0, 80)}...</p>
               <div className="flex justify-between text-sm text-gray-500 mb-4">
-                <span>ðŸ›ï¸ {prop.bedrooms} beds</span>
-                <span>ðŸ“ {prop.area}</span>
-                <span>ðŸ“ {prop.location}</span>
+                <span>🛏️ {prop.bedrooms} beds</span>
+                <span>📏 {prop.area}</span>
+                <span>📍 {prop.location}</span>
               </div>
               <button
                 onClick={() => handleContactOwner(prop)}
@@ -226,7 +223,6 @@ const Buy = () => {
         ))}
       </div>
 
-      {/* Owner Info Modal */}
       {selectedOwner && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
@@ -252,7 +248,6 @@ const Buy = () => {
         </div>
       )}
 
-      {/* CTA */}
       <div className="mt-16 bg-primary text-white rounded-xl p-8 text-center">
         <h2 className="text-2xl font-bold mb-4">Ready to Find Your Dream Home?</h2>
         <p className="mb-6">Our expert agents are ready to help you find the perfect property.</p>
@@ -276,5 +271,3 @@ const Buy = () => {
 };
 
 export default Buy;
-
-
