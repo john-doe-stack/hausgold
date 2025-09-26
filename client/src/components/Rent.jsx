@@ -1,4 +1,4 @@
-// client/src/components/Rent.jsx
+﻿// client/src/components/Rent.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ const Rent = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedOwner, setSelectedOwner] = useState(null); // ✅ popup state
+  const [selectedOwner, setSelectedOwner] = useState(null); // âœ… popup state
 
   const rentProperties = [
     {
@@ -17,7 +17,7 @@ const Rent = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667246/acc36baf42b414ad5c16fa8c15b671d4-uncropped_scaled_within_1536_1152_wnatio.webp",
       location: "Berlin Mitte",
       bedrooms: 2,
-      area: "95m²"
+      area: "95mÂ²"
     },
     {
       id: 2,
@@ -27,17 +27,17 @@ const Rent = () => {
       image_url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
       location: "Hamburg HafenCity",
       bedrooms: 2,
-      area: "120m²"
+      area: "120mÂ²"
     },
     {
       id: 3,
       title: "Modern Studio in Munich Schwabing",
       price: 1100,
-      description: "Bright and stylish studio in Munich’s lively Schwabing district. Close to cafes, shops, and public transport.",
+      description: "Bright and stylish studio in Munichâ€™s lively Schwabing district. Close to cafes, shops, and public transport.",
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667244/75f8e716d67dae145e2f100de33be766-uncropped_scaled_within_1536_1152_dikyya.webp",
       location: "Munich Schwabing",
       bedrooms: 1,
-      area: "48m²"
+      area: "48mÂ²"
     },
     {
       id: 4,
@@ -47,17 +47,17 @@ const Rent = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667243/08e4989775d3e9ab60750cb5f7ebfa23-uncropped_scaled_within_1536_1152_zuy96f.webp",
       location: "Cologne Ehrenfeld",
       bedrooms: 3,
-      area: "105m²"
+      area: "105mÂ²"
     },
     {
       id: 5,
       title: "Stylish Flat in Frankfurt Westend",
       price: 1600,
-      description: "Modern 2-bedroom flat in Frankfurt’s Westend. Great location for professionals, near finance district.",
+      description: "Modern 2-bedroom flat in Frankfurtâ€™s Westend. Great location for professionals, near finance district.",
       image_url: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?auto=format&fit=crop&w=800&q=80",
       location: "Frankfurt Westend",
       bedrooms: 2,
-      area: "88m²"
+      area: "88mÂ²"
     },
     {
       id: 6,
@@ -67,7 +67,7 @@ const Rent = () => {
       image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667243/3ef93a63d73c0f08b5bdb2a457c9d927-uncropped_scaled_within_1536_1152_j9l1eo.webp",
       location: "Stuttgart",
       bedrooms: 3,
-      area: "150m²"
+      area: "150mÂ²"
     }
   ];
 
@@ -112,7 +112,7 @@ const Rent = () => {
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-primary mb-4">Homes & Apartments for Rent in Germany</h1>
         <p className="text-gray-600 max-w-3xl mx-auto">
-          Discover premium rental properties across Germany — from luxury penthouses in Berlin to cozy studios in Munich. 
+          Discover premium rental properties across Germany â€” from luxury penthouses in Berlin to cozy studios in Munich. 
           Find your perfect match with Hausgold.
         </p>
       </div>
@@ -125,13 +125,13 @@ const Rent = () => {
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <div className="text-3xl font-bold text-secondary mb-2">
-            €{Math.min(...properties.map(p => p.price)).toLocaleString()}/mo
+            â‚¬{Math.min(...properties.map(p => p.price)).toLocaleString()}/mo
           </div>
           <div className="text-gray-600">Starting From</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <div className="text-3xl font-bold text-secondary mb-2">
-            €{Math.max(...properties.map(p => p.price)).toLocaleString()}/mo
+            â‚¬{Math.max(...properties.map(p => p.price)).toLocaleString()}/mo
           </div>
           <div className="text-gray-600">Luxury Rentals</div>
         </div>
@@ -149,14 +149,14 @@ const Rent = () => {
             <div className="p-6">
               <div className="flex justify-between items-start mb-3">
                 <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm">For Rent</span>
-                <span className="text-xl font-bold text-primary">€{prop.price.toLocaleString()}/mo</span>
+                <span className="text-xl font-bold text-primary">â‚¬{prop.price.toLocaleString()}/mo</span>
               </div>
               <h3 className="text-lg font-semibold mb-2">{prop.title}</h3>
               <p className="text-gray-600 mb-4 text-sm">{prop.description}</p>
               <div className="flex justify-between items-center text-sm text-gray-500 mb-4">
-                <span>🛏️ {prop.bedrooms} beds</span>
-                <span>📏 {prop.area}</span>
-                <span>📍 {prop.location}</span>
+                <span>ðŸ›ï¸ {prop.bedrooms} beds</span>
+                <span>ðŸ“ {prop.area}</span>
+                <span>ðŸ“ {prop.location}</span>
               </div>
               <button
                 onClick={() => handleContactOwner(prop)}
@@ -169,7 +169,7 @@ const Rent = () => {
         ))}
       </div>
 
-      {/* ✅ Contact Owner Popup */}
+      {/* âœ… Contact Owner Popup */}
       {selectedOwner && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
@@ -219,3 +219,4 @@ const Rent = () => {
 };
 
 export default Rent;
+
