@@ -1,9 +1,10 @@
-﻿// client/src/components/Properties.jsx
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 const Properties = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [filters, setFilters] = useState({
@@ -15,26 +16,32 @@ const Properties = () => {
   const [loading, setLoading] = useState(true);
   const [selectedOwner, setSelectedOwner] = useState(null);
 
-  // Backend API base URL (Render or localhost fallback)
-  const backendUrl =
-    process.env.REACT_APP_API_BASE_URL || "http://localhost:3000";
+  const backendUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:10000';
 
-  // Fetch properties from API
-useEffect(() => {
-  const fetchProperties = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${backendUrl}/api/properties`, { params: filters });
-      setProperties(res.data);
-    } catch (err) {
-      console.error("Error fetching properties:", err);
-      setProperties([]);
-    } finally {
-      setLoading(false);
+  const getFullImageUrl = (url) => {
+    if (!url) return "https://via.placeholder.com/640x360?text=No+Image";
+    const cleanUrl = url.trim();
+    if (cleanUrl.startsWith('http')) {
+      return cleanUrl;
     }
+    return backendUrl + cleanUrl;
   };
-  fetchProperties();
-}, [filters, backendUrl]); // 👈 Add backendUrl to dependency array
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${backendUrl}/api/properties`, { params: filters });
+        setProperties(res.data);
+      } catch (err) {
+        console.error("Error fetching properties:", err);
+        setProperties([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProperties();
+  }, [filters, backendUrl]);
 
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -74,7 +81,7 @@ useEffect(() => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading properties...</p>
+          <p className="mt-4 text-gray-600">{t('loadingProperties')}</p>
         </div>
       </div>
     );
@@ -83,16 +90,15 @@ useEffect(() => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6">
-        Properties
+        {t('properties')}
       </h2>
 
       {/* Filters */}
       <div className="bg-white rounded-xl shadow-md p-4 md:p-6 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Property Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Property Type
+              {t('propertyType')}
             </label>
             <select
               name="type"
@@ -100,51 +106,48 @@ useEffect(() => {
               onChange={handleFilterChange}
               className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary"
             >
-              <option value="">All Types</option>
-              <option value="buy">Buy</option>
-              <option value="rent">Rent</option>
+              <option value="">{t('allTypes')}</option>
+              <option value="buy">{t('buy')}</option>
+              <option value="rent">{t('rent')}</option>
             </select>
           </div>
 
-          {/* Min Price */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Min Price
+              {t('minPrice')}
             </label>
             <input
               name="minPrice"
               type="number"
-              placeholder="Min Price"
+              placeholder={t('minPrice')}
               value={filters.minPrice}
               onChange={handleFilterChange}
               className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary"
             />
           </div>
 
-          {/* Max Price */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Max Price
+              {t('maxPrice')}
             </label>
             <input
               name="maxPrice"
               type="number"
-              placeholder="Max Price"
+              placeholder={t('maxPrice')}
               value={filters.maxPrice}
               onChange={handleFilterChange}
               className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary"
             />
           </div>
 
-          {/* Location */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Location
+              {t('location')}
             </label>
             <input
               name="location"
               type="text"
-              placeholder="City or Region"
+              placeholder={t('cityOrRegion')}
               value={filters.location}
               onChange={handleFilterChange}
               className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary"
@@ -156,9 +159,7 @@ useEffect(() => {
       {/* Properties Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {properties.map((prop) => {
-          const imageUrl = prop.image_url
-            ? `${backendUrl}${prop.image_url}`
-            : "https://via.placeholder.com/640x360?text=No+Image";
+          const imageUrl = getFullImageUrl(prop.image_url);
 
           return (
             <div
@@ -171,14 +172,13 @@ useEffect(() => {
                 className="w-full h-48 object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src =
-                    "https://via.placeholder.com/640x360?text=Image+Not+Found";
+                  e.target.src = "https://via.placeholder.com/640x360?text=Image+Not+Found";
                 }}
               />
               <div className="p-4 md:p-6">
                 <div className="flex justify-between items-start mb-3">
                   <span className="bg-secondary text-white px-2 py-1 rounded-full text-xs">
-                    {prop.type === "rent" ? "For Rent" : "For Sale"}
+                    {prop.type === "rent" ? t('forRent') : t('forSale')}
                   </span>
                   <span className="text-lg font-bold text-primary">
                     €{prop.price.toLocaleString()}
@@ -216,7 +216,7 @@ useEffect(() => {
                   onClick={() => handleContactOwner(prop)}
                   className="w-full bg-primary text-white py-2 rounded-lg hover:bg-opacity-90 transition-colors text-sm"
                 >
-                  Contact Owner
+                  {t('contactOwner')}
                 </button>
               </div>
             </div>
@@ -224,19 +224,16 @@ useEffect(() => {
         })}
       </div>
 
-      {/* No results */}
       {properties.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">
-            No properties found matching your criteria.
+            {t('noPropertiesFound')}
           </p>
           <button
-            onClick={() =>
-              setFilters({ type: "", minPrice: "", maxPrice: "", location: "" })
-            }
+            onClick={() => setFilters({ type: "", minPrice: "", maxPrice: "", location: "" })}
             className="mt-4 bg-secondary text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
           >
-            Clear Filters
+            {t('clearFilters')}
           </button>
         </div>
       )}
@@ -244,7 +241,26 @@ useEffect(() => {
       {/* Owner Info Popup */}
       {selectedOwner && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          {/* (same popup code as before) */}
+          <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
+            <button 
+              onClick={closeOwnerPopup}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+            <h3 className="text-xl font-bold mb-4">{t('contactAgent')}</h3>
+            <p><strong>{t('name')}:</strong> {selectedOwner.name}</p>
+            <p><strong>{t('phone')}:</strong> {selectedOwner.phone}</p>
+            <p><strong>{t('email')}:</strong> {selectedOwner.email}</p>
+            <p><strong>{t('address')}:</strong> {selectedOwner.address}</p>
+            <p><strong>{t('property')}:</strong> {selectedOwner.property}</p>
+            <button
+              onClick={closeOwnerPopup}
+              className="mt-4 bg-primary text-white px-4 py-2 rounded-lg"
+            >
+              {t('close')}
+            </button>
+          </div>
         </div>
       )}
     </div>

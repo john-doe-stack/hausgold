@@ -1,4 +1,4 @@
-// server/seed-properties.js
+﻿// server/seed-properties.js
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const dbPath = path.join(__dirname, '../hausgold.db');
@@ -9,25 +9,25 @@ const sampleProperties = [
     title: "Charmantes Stadthaus in Berlin Prenzlauer Berg",
     type: "buy",
     price: 550000,
-    description: "Ein bezauberndes Stadthaus im Herzen von Prenzlauer Berg. 150 m² mit 4 Schlafzimmern, Balkon, lichtdurchfluteter Wohnraum und moderner Küche.",
+    description: "Ein bezauberndes Stadthaus im Herzen von Prenzlauer Berg. 150 mÂ² mit 4 Schlafzimmern, Balkon, lichtdurchfluteter Wohnraum und moderner KÃ¼che.",
     image_url: "https://images.unsplash.com/photo-1575516882755-922426392347?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 1,
     location: "Berlin, Prenzlauer Berg"
   },
   {
-    title: "Luxuriöse Villa am Tegernsee, Bayern",
+    title: "LuxuriÃ¶se Villa am Tegernsee, Bayern",
     type: "buy",
     price: 3200000,
-    description: "Exquisite Villa direkt am Tegernsee mit privatem Steg, großem Garten und Bergblick. 6 Schlafzimmer, Pool, Spa-Bereich.",
+    description: "Exquisite Villa direkt am Tegernsee mit privatem Steg, groÃŸem Garten und Bergblick. 6 Schlafzimmer, Pool, Spa-Bereich.",
     image_url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 2,
     location: "Tegernsee, Bayern"
   },
   {
-    title: "Gemütliche Doppelhaushälfte in Hamburg Harvestehude",
+    title: "GemÃ¼tliche DoppelhaushÃ¤lfte in Hamburg Harvestehude",
     type: "rent",
     price: 3200,
-    description: "Schöne Doppelhaushälfte in sehr gefragter Lage von Harvestehude. Lichtdurchflutet, Garten, hochwertig saniert.",
+    description: "SchÃ¶ne DoppelhaushÃ¤lfte in sehr gefragter Lage von Harvestehude. Lichtdurchflutet, Garten, hochwertig saniert.",
     image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667243/897bffb4d441787c584116ff3eb21b3c-uncropped_scaled_within_1536_1152_ssshkh.webp",
     user_id: 3,
     location: "Hamburg Harvestehude"
@@ -36,34 +36,34 @@ const sampleProperties = [
     title: "Familienhaus in Frankfurt Westend",
     type: "buy",
     price: 1450000,
-    description: "Elegant ausgestattetes Familienhaus im Westend. 5 Schlafzimmer, große Fensterfront, Garten und Garage.",
+    description: "Elegant ausgestattetes Familienhaus im Westend. 5 Schlafzimmer, groÃŸe Fensterfront, Garten und Garage.",
     image_url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 4,
     location: "Frankfurt Westend"
   },
   {
-    title: "Modernes Reihenhaus in Köln Ehrenfeld",
+    title: "Modernes Reihenhaus in KÃ¶ln Ehrenfeld",
     type: "rent",
     price: 2650,
     description: "Stylisches Reihenhaus im kreativen Viertel Ehrenfeld. Offener Wohn-/Essbereich, Dachterrasse, moderne Ausstattung.",
     image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667243/3ef93a63d73c0f08b5bdb2a457c9d927-uncropped_scaled_within_1536_1152_j9l1eo.webp",
     user_id: 5,
-    location: "Köln Ehrenfeld"
+    location: "KÃ¶ln Ehrenfeld"
   },
   {
     title: "Historische Villa in Dresden Blasewitz",
     type: "buy",
     price: 950000,
-    description: "Charmante Altbau-Villa mit Stuck, hohen Decken, Garten und Blick zur Elbe. Vollständig restauriert.",
+    description: "Charmante Altbau-Villa mit Stuck, hohen Decken, Garten und Blick zur Elbe. VollstÃ¤ndig restauriert.",
     image_url: "https://images.unsplash.com/photo-1591869815554-934989223843?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 6,
     location: "Dresden Blasewitz"
   },
   {
-    title: "Penthouse mit Blick über Stuttgart",
+    title: "Penthouse mit Blick Ã¼ber Stuttgart",
     type: "buy",
     price: 1250000,
-    description: "Luxus-Penthouse mit großer Dachterrasse, Panoramablick, offener Wohnküche und Designfinish.",
+    description: "Luxus-Penthouse mit groÃŸer Dachterrasse, Panoramablick, offener WohnkÃ¼che und Designfinish.",
     image_url: "https://images.unsplash.com/photo-1575516882755-922426392347?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 7,
     location: "Stuttgart Mitte"
@@ -72,37 +72,37 @@ const sampleProperties = [
     title: "Landhaus bei Heidelberg",
     type: "buy",
     price: 850000,
-    description: "Idyllisches Landhaus mit viel Natur, Garten, Terrasse und Platz für Familie und Gäste.",
+    description: "Idyllisches Landhaus mit viel Natur, Garten, Terrasse und Platz fÃ¼r Familie und GÃ¤ste.",
     image_url: "https://plus.unsplash.com/premium_photo-1682377521625-c656fc1ff3e1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dmlsbGF8ZW58MHx8MHx8fDA%3D",
     user_id: 8,
     location: "Umgebung Heidelberg"
   },
   {
-    title: "Stilvolles Loft in Leipzig Südvorstadt",
+    title: "Stilvolles Loft in Leipzig SÃ¼dvorstadt",
     type: "rent",
     price: 2000,
-    description: "Großzügiges Loft mit Industriecharme, offenen Räumen, hohen Decken und exzellenter Verkehrsanbindung.",
+    description: "GroÃŸzÃ¼giges Loft mit Industriecharme, offenen RÃ¤umen, hohen Decken und exzellenter Verkehrsanbindung.",
     image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667249/d0080fdd6ba18904a22c75b2d2ee5f24-uncropped_scaled_within_1536_1152_xzjicy.webp",
     user_id: 9,
-    location: "Leipzig Südvorstadt"
+    location: "Leipzig SÃ¼dvorstadt"
   },
   {
     title: "Wasserblick Villa in Hamburg Othmarschen",
     type: "buy",
     price: 2400000,
-    description: "Elegante Villa direkt an der Elbe mit großem Garten, Bootsanleger und hohen Decken.",
+    description: "Elegante Villa direkt an der Elbe mit groÃŸem Garten, Bootsanleger und hohen Decken.",
     image_url: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHZpbGxhfGVufDB8fDB8fHww",
     user_id: 10,
     location: "Hamburg Othmarschen"
   },
   {
-    title: "Stadthaus Düsseldorf Oberkassel",
+    title: "Stadthaus DÃ¼sseldorf Oberkassel",
     type: "buy",
     price: 950000,
     description: "Modernes Stadthaus in Oberkassel. Stilvolle Ausstattung, Garten, Garage und smarte Haustechnik.",
     image_url: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 11,
-    location: "Düsseldorf Oberkassel"
+    location: "DÃ¼sseldorf Oberkassel"
   },
   {
     title: "Romantisches Cottage im Schwarzwald",
@@ -117,52 +117,52 @@ const sampleProperties = [
     title: "Design-Apartment in Berlin Charlottenburg",
     type: "rent",
     price: 2700,
-    description: "Hochwertiges Apartment mit Designerinterieur, Concierge Service, Balkon und Blick ins Grüne.",
+    description: "Hochwertiges Apartment mit Designerinterieur, Concierge Service, Balkon und Blick ins GrÃ¼ne.",
     image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667243/2677be5041b405d016cfe22bc63c7917-uncropped_scaled_within_1536_1152_tt0inj.webp",
     user_id: 13,
     location: "Berlin Charlottenburg"
   },
   {
-    title: "Moderne Villa mit Pool in München",
+    title: "Moderne Villa mit Pool in MÃ¼nchen",
     type: "buy",
     price: 2800000,
-    description: "Zeitgenössische Villa mit Infinity Pool, Heimkino und Smart Home Technologie nahe München.",
+    description: "ZeitgenÃ¶ssische Villa mit Infinity Pool, Heimkino und Smart Home Technologie nahe MÃ¼nchen.",
     image_url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 14,
-    location: "München Solln"
+    location: "MÃ¼nchen Solln"
   },
   {
     title: "Studio in Hamburg City Center",
     type: "rent",
     price: 1500,
-    description: "Kompaktes Studio mitten in der City von Hamburg. Ideal für Singles oder Pendler, modern eingerichtet.",
+    description: "Kompaktes Studio mitten in der City von Hamburg. Ideal fÃ¼r Singles oder Pendler, modern eingerichtet.",
     image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667245/a7e9521063afb1f8b2a2e3914338e5f9-uncropped_scaled_within_1536_1152_h996zy.webp",
     user_id: 15,
     location: "Hamburg Mitte"
   },
   {
-    title: "Bauernhaus in Thüringen",
+    title: "Bauernhaus in ThÃ¼ringen",
     type: "buy",
     price: 650000,
-    description: "Rustikales Bauernhaus in Thüringen mit großem Grundstück, Stallungen und viel historischen Charme.",
+    description: "Rustikales Bauernhaus in ThÃ¼ringen mit groÃŸem GrundstÃ¼ck, Stallungen und viel historischen Charme.",
     image_url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 16,
-    location: "Thüringen ländlich"
+    location: "ThÃ¼ringen lÃ¤ndlich"
   },
   {
-    title: "Altbauwohnung in Nürnberg Altstadt",
+    title: "Altbauwohnung in NÃ¼rnberg Altstadt",
     type: "rent",
     price: 1800,
-    description: "Charmante Altbauwohnung inmitten der Nürnberger Altstadt. Hohe Decken, Parkett, Balkonblick.",
+    description: "Charmante Altbauwohnung inmitten der NÃ¼rnberger Altstadt. Hohe Decken, Parkett, Balkonblick.",
     image_url: "https://res.cloudinary.com/dhvslqwtr/image/upload/v1758667244/75f8e716d67dae145e2f100de33be766-uncropped_scaled_within_1536_1152_dikyya.webp",
     user_id: 17,
-    location: "Nürnberg Altstadt"
+    location: "NÃ¼rnberg Altstadt"
   },
   {
-    title: "Schlossähnliches Herrenhaus in Sachsen",
+    title: "SchlossÃ¤hnliches Herrenhaus in Sachsen",
     type: "buy",
     price: 1200000,
-    description: "Prächtiges Herrenhaus mit Säulenportal, hohen Fenstern und großem Parkgrundstück in Sachsen.",
+    description: "PrÃ¤chtiges Herrenhaus mit SÃ¤ulenportal, hohen Fenstern und groÃŸem ParkgrundstÃ¼ck in Sachsen.",
     image_url: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80",
     user_id: 18,
     location: "Sachsen Land"
@@ -197,17 +197,21 @@ function dbRun(sql, params = []) {
   });
 }
 
+// Promisify db.get
+function dbGet(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.get(sql, params, (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+}
+
 async function seedDatabase() {
   try {
     // Check if properties already exist
-    const countStmt = await new Promise((resolve, reject) => {
-      db.get("SELECT COUNT(*) as count FROM properties", (err, row) => {
-        if (err) reject(err);
-        else resolve(row.count);
-      });
-    });
-
-    if (countStmt > 0) {
+    const countRow = await dbGet("SELECT COUNT(*) as count FROM properties");
+    if (countRow.count > 0) {
       console.log("PropertyParams already exist. Skipping seed.");
       return;
     }
@@ -244,29 +248,32 @@ async function seedDatabase() {
     for (const property of sampleProperties) {
       await dbRun(
         `INSERT INTO properties (title, type, price, description, image_url, user_id, location) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [property.title.trim(), property.type, property.price, property.description.trim(), property.image_url.trim(), property.user_id, property.location.trim()]
+        [
+          property.title.trim(),
+          property.type,
+          property.price,
+          property.description.trim(),
+          property.image_url.trim(), // CRITICAL: Remove all spaces
+          property.user_id,
+          property.location.trim()
+        ]
       );
-      console.log('✅ Inserted:', property.title);
+      console.log('âœ… Inserted:', property.title);
     }
 
     // Final count check
-    const finalCount = await new Promise((resolve, reject) => {
-      db.get("SELECT COUNT(*) as count FROM properties", (err, row) => {
-        if (err) reject(err);
-        else resolve(row.count);
-      });
-    });
-    console.log(`🎉 Successfully seeded database with ${finalCount} German sample properties!`);
+    const finalCount = await dbGet("SELECT COUNT(*) as count FROM properties");
+    console.log(`ðŸŽ‰ Successfully seeded database with ${finalCount.count} German sample properties!`);
 
   } catch (err) {
-    console.error('❌ Fatal error during seeding:', err.message);
+    console.error('âŒ Fatal error during seeding:', err.message);
     process.exit(1);
   } finally {
     db.close((err) => {
       if (err) {
         console.error('Error closing database:', err.message);
       } else {
-        console.log('🔒 Database connection closed');
+        console.log('ðŸ”’ Database connection closed');
       }
     });
   }
