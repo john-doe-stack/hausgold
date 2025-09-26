@@ -159,6 +159,31 @@ const Rent = () => {
         ))}
       </div>
 
+      {/* Owner Info Popup */}
+      {selectedOwner && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
+            <button 
+              onClick={closePopup}
+              className="absolute top-2 right-2 text-gray-500 text-2xl font-bold"
+            >
+              &times;
+            </button>
+            <h3 className="text-xl font-bold mb-4">Owner Information</h3>
+            <p><strong>Name:</strong> {selectedOwner.name}</p>
+            <p><strong>Phone:</strong> {selectedOwner.phone}</p>
+            <p><strong>Email:</strong> {selectedOwner.email}</p>
+            <p><strong>Address:</strong> {selectedOwner.address}</p>
+            <p><strong>Property:</strong> {selectedOwner.property}</p>
+            <button
+              onClick={closePopup}
+              className="mt-4 bg-secondary text-white px-4 py-2 rounded-lg"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       {/* CTA Section */}
       <div className="mt-16 bg-primary text-white rounded-xl p-8 text-center shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Need Help Finding the Right Place?</h2>
