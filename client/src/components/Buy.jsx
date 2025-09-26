@@ -1,14 +1,13 @@
-// client/src/components/Buy.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const Buy = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedOwner, setSelectedOwner] = useState(null);
 
-  // Mock data for buy properties
+  // Buy properties (latest full list from your input)
   const buyProperties = [
     {
       id: 1,
@@ -148,13 +147,19 @@ const Buy = () => {
   }, []);
 
   const handleContactOwner = (property) => {
-    alert(`Contact Owner: ${property.title}\n\nName: ${getRandomName()}\nPhone: +49 (0)40 635 5427\nEmail: agent${Math.floor(Math.random() * 100)}@hausgold.de`);
+    const maleNames = ["Thomas Schmidt", "Michael Wagner", "Andreas Becker", "Markus Hoffmann", "Christian Schulz", "Daniel Meyer", "Stefan Weber", "Alexander Klein", "Matthias Braun", "Jan Fischer"];
+    const randomName = maleNames[Math.floor(Math.random() * maleNames.length)];
+
+    setSelectedOwner({
+      name: randomName,
+      phone: "+49 (0)40 635 5427",
+      email: `agent${Math.floor(Math.random() * 100)}@hausgold.de`,
+      address: "Jungfernstieg 24, 20354 Hamburg, Germany",
+      property: property.title,
+    });
   };
 
-  const getRandomName = () => {
-    const maleNames = ["Thomas Schmidt", "Michael Wagner", "Andreas Becker", "Markus Hoffmann", "Christian Schulz", "Daniel Meyer", "Stefan Weber", "Alexander Klein", "Matthias Braun", "Jan Fischer"];
-    return maleNames[Math.floor(Math.random() * maleNames.length)];
-  };
+  const closePopup = () => setSelectedOwner(null);
 
   if (loading) {
     return (
@@ -169,14 +174,15 @@ const Buy = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Page Title */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-primary mb-4">Properties for Sale</h1>
         <p className="text-gray-600 max-w-3xl mx-auto">
-          Discover our exclusive selection of properties for sale across Germany. From modern apartments in city centers to luxury villas in scenic locations, find your perfect home.
+          Discover our exclusive selection of properties for sale across Germany.
         </p>
       </div>
 
-      {/* Stats Section */}
+      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <div className="text-3xl font-bold text-secondary mb-2">{properties.length}</div>
@@ -192,15 +198,11 @@ const Buy = () => {
         </div>
       </div>
 
-      {/* Properties Grid */}
+      {/* Property Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {properties.map((prop) => (
           <div key={prop.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-            <img
-              src={prop.image_url}
-              alt={prop.title}
-              className="w-full h-48 object-cover"
-            />
+            <img src={prop.image_url} alt={prop.title} className="w-full h-48 object-cover" />
             <div className="p-6">
               <div className="flex justify-between items-start mb-3">
                 <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm">For Sale</span>
@@ -208,7 +210,7 @@ const Buy = () => {
               </div>
               <h3 className="text-lg font-semibold mb-2">{prop.title}</h3>
               <p className="text-gray-600 mb-4 text-sm">{prop.description.substring(0, 80)}...</p>
-              <div className="flex justify-between items-center text-sm text-gray-500 mb-4">
+              <div className="flex justify-between text-sm text-gray-500 mb-4">
                 <span>🛏️ {prop.bedrooms} beds</span>
                 <span>📏 {prop.area}</span>
                 <span>📍 {prop.location}</span>
@@ -223,7 +225,8 @@ const Buy = () => {
           </div>
         ))}
       </div>
-      {/* Owner Info Popup */}
+
+      {/* Owner Info Modal */}
       {selectedOwner && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
@@ -248,6 +251,26 @@ const Buy = () => {
           </div>
         </div>
       )}
+
+      {/* CTA */}
+      <div className="mt-16 bg-primary text-white rounded-xl p-8 text-center">
+        <h2 className="text-2xl font-bold mb-4">Ready to Find Your Dream Home?</h2>
+        <p className="mb-6">Our expert agents are ready to help you find the perfect property.</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onClick={() => navigate('/contact')}
+            className="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
+          >
+            Contact an Agent
+          </button>
+          <button
+            onClick={() => navigate('/properties')}
+            className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
+          >
+            View All Properties
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

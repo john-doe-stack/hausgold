@@ -6,8 +6,8 @@ const Rent = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedOwner, setSelectedOwner] = useState(null); // ✅ popup state
 
-  // Realistic property data (Germany-focused)
   const rentProperties = [
     {
       id: 1,
@@ -77,17 +77,23 @@ const Rent = () => {
   }, []);
 
   const handleContactOwner = (property) => {
-    alert(`Contact Owner: ${property.title}\n\nName: ${getRandomName()}\nPhone: +49 (0)30 123 4567\nEmail: agent${Math.floor(Math.random() * 100)}@hausgold.de`);
-  };
-
-  const getRandomName = () => {
     const names = [
       "Thomas Schmidt", "Michael Wagner", "Andreas Becker",
       "Claudia Fischer", "Markus Hoffmann", "Daniela Weber",
       "Christian Schulz", "Stefan Klein", "Matthias Braun", "Laura Schneider"
     ];
-    return names[Math.floor(Math.random() * names.length)];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+
+    setSelectedOwner({
+      name: randomName,
+      phone: "+49 (0)30 123 4567",
+      email: `agent${Math.floor(Math.random() * 100)}@hausgold.de`,
+      address: "Jungfernstieg 24, 20354 Hamburg, Germany",
+      property: property.title,
+    });
   };
+
+  const closePopup = () => setSelectedOwner(null);
 
   if (loading) {
     return (
@@ -111,23 +117,27 @@ const Rent = () => {
         </p>
       </div>
 
-      {/* Stats Section */}
+      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <div className="text-3xl font-bold text-secondary mb-2">{properties.length}</div>
           <div className="text-gray-600">Available Properties</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <div className="text-3xl font-bold text-secondary mb-2">€{Math.min(...properties.map(p => p.price)).toLocaleString()}/mo</div>
+          <div className="text-3xl font-bold text-secondary mb-2">
+            €{Math.min(...properties.map(p => p.price)).toLocaleString()}/mo
+          </div>
           <div className="text-gray-600">Starting From</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <div className="text-3xl font-bold text-secondary mb-2">€{Math.max(...properties.map(p => p.price)).toLocaleString()}/mo</div>
+          <div className="text-3xl font-bold text-secondary mb-2">
+            €{Math.max(...properties.map(p => p.price)).toLocaleString()}/mo
+          </div>
           <div className="text-gray-600">Luxury Rentals</div>
         </div>
       </div>
 
-      {/* Properties Grid */}
+      {/* Property Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {properties.map((prop) => (
           <div key={prop.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow">
@@ -159,7 +169,7 @@ const Rent = () => {
         ))}
       </div>
 
-      {/* Owner Info Popup */}
+      {/* ✅ Contact Owner Popup */}
       {selectedOwner && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full relative">
@@ -169,7 +179,7 @@ const Rent = () => {
             >
               &times;
             </button>
-            <h3 className="text-xl font-bold mb-4">Owner Information</h3>
+                        <h3 className="text-xl font-bold mb-4">Owner Information</h3>
             <p><strong>Name:</strong> {selectedOwner.name}</p>
             <p><strong>Phone:</strong> {selectedOwner.phone}</p>
             <p><strong>Email:</strong> {selectedOwner.email}</p>
@@ -177,13 +187,14 @@ const Rent = () => {
             <p><strong>Property:</strong> {selectedOwner.property}</p>
             <button
               onClick={closePopup}
-              className="mt-4 bg-secondary text-white px-4 py-2 rounded-lg"
+              className="mt-4 bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary-dark"
             >
               Close
             </button>
           </div>
         </div>
       )}
+
       {/* CTA Section */}
       <div className="mt-16 bg-primary text-white rounded-xl p-8 text-center shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Need Help Finding the Right Place?</h2>
