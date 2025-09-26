@@ -187,11 +187,11 @@ const Buy = () => {
           <div className="text-gray-600">Properties Available</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <div className="text-3xl font-bold text-secondary mb-2">{'\u20AC'}{Math.min(...properties.map(p => p.price)).toLocaleString()}</div>
+          <div className="text-3xl font-bold text-secondary mb-2">€{Math.min(...properties.map(p => p.price)).toLocaleString()}</div>
           <div className="text-gray-600">Starting Price</div>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <div className="text-3xl font-bold text-secondary mb-2">{'\u20AC'}{Math.max(...properties.map(p => p.price)).toLocaleString()}</div>
+          <div className="text-3xl font-bold text-secondary mb-2">€{Math.max(...properties.map(p => p.price)).toLocaleString()}</div>
           <div className="text-gray-600">Luxury Properties</div>
         </div>
       </div>
@@ -203,14 +203,14 @@ const Buy = () => {
             <div className="p-6">
               <div className="flex justify-between items-start mb-3">
                 <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm">For Sale</span>
-                <span className="text-xl font-bold text-primary">{'\u20AC'}{prop.price.toLocaleString()}</span>
+                <span className="text-xl font-bold text-primary">€{prop.price.toLocaleString()}</span>
               </div>
               <h3 className="text-lg font-semibold mb-2">{prop.title}</h3>
               <p className="text-gray-600 mb-4 text-sm">{prop.description.substring(0, 80)}...</p>
               <div className="flex justify-between text-sm text-gray-500 mb-4">
-                <span>🛏️ {prop.bedrooms} beds</span>
-                <span>📏 {prop.area}</span>
-                <span>📍 {prop.location}</span>
+                <span>{prop.bedrooms} beds</span>
+                <span>{prop.area}</span>
+                <span>{prop.location}</span>
               </div>
               <button
                 onClick={() => handleContactOwner(prop)}

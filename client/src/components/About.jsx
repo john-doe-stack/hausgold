@@ -42,7 +42,7 @@ const About = () => {
               </div>
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">Thomas MÃ¼ller</h3>
+              <h3 className="text-xl font-semibold mb-2">Thomas Müller</h3>
               <p className="text-secondary font-medium mb-2">CEO & Founder</p>
               <p className="text-gray-600 text-sm">
                 With over 15 years of experience in German real estate, Thomas founded Hausgold to create a more transparent and user-friendly property market.

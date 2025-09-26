@@ -190,7 +190,7 @@ const Properties = () => {
                 </p>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-sm text-gray-500">
-                    📍 {prop.location}
+                    {prop.location}
                   </span>
                   <button
                     onClick={() => handleContactOwner(prop)}
